@@ -10,6 +10,8 @@
 
           let reader = new FileReader;
           reader.addEventListener("load", loadEvent => {
+              console.log(loadEvent);
+              console.log(reader.result);
               window.location.href = reader.result;
           });
           reader.readAsText(await item.getType("text/html"));
