@@ -1,0 +1,21 @@
+<html>
+  <span style="font-weight: bold; background-color: black; color: white;">Select this text and copy</span>
+  <div><button id="read-html">Paste HTML below</button></div>
+  <div id="html-output"></div>
+  <script>
+  document.getElementById("read-html").addEventListener("click", async clickEvent => {
+      let items = await navigator.clipboard.read();
+      for (let item of items) {
+          if (!item.types.includes("text/html"))
+              continue;
+
+          let reader = new FileReader;
+          reader.addEventListener("load", loadEvent => {
+              document.getElementById("html-output").innerHTML = reader.result;
+          });
+          reader.readAsText(await item.getType("text/html"));
+          break;
+      }
+  });
+  </script>
+</html>
