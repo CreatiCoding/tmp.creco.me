@@ -1,0 +1,20 @@
+<html>
+  <div><button id="read-html">클립보드로 바로가기</button></div>
+  <div id="html-output"></div>
+  <script>
+  document.getElementById("read-html").addEventListener("click", async clickEvent => {
+      let items = await navigator.clipboard.read();
+      for (let item of items) {
+          if (!item.types.includes("text/html"))
+              continue;
+
+          let reader = new FileReader;
+          reader.addEventListener("load", loadEvent => {
+              window.location.href = reader.result;
+          });
+          reader.readAsText(await item.getType("text/html"));
+          break;
+      }
+  });
+  </script>
+</html>
